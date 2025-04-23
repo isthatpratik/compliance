@@ -50,27 +50,11 @@ const AuthCallback = () => {
             }
           }
 
-          // Force a refresh of the auth state
-          await supabase.auth.refreshSession();
-          
-          // Redirect to the home page
+          // Redirect to home page immediately after successful authentication
           window.location.href = '/';
         } else {
-          // If no tokens in URL, try to get the session
-          const { data: { session }, error } = await supabase.auth.getSession();
-          
-          if (error) {
-            console.error('Error getting session:', error);
-            window.location.href = '/';
-            return;
-          }
-
-          if (session) {
-            window.location.href = '/';
-          } else {
-            // If still no session, redirect to home
-            window.location.href = '/';
-          }
+          // If no tokens in URL, redirect to home
+          window.location.href = '/';
         }
       } catch (error) {
         console.error('Error in auth callback:', error);
@@ -85,7 +69,7 @@ const AuthCallback = () => {
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center space-y-4">
         <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p className="text-lg text-gray-600 dark:text-gray-300">Completing sign in...</p>
+        <p className="text-lg text-gray-600 dark:text-gray-300">Redirecting to home page...</p>
       </div>
     </div>
   );
@@ -122,7 +106,7 @@ const App = () => {
                         <div className="min-h-screen flex items-center justify-center">
                           <div className="text-center space-y-4">
                             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                            <p className="text-lg text-gray-600 dark:text-gray-300">Completing sign in...</p>
+                            <p className="text-lg text-gray-600 dark:text-gray-300">Redirecting to home page...</p>
                           </div>
                         </div>
                       } 
