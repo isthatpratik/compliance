@@ -20,6 +20,8 @@ const AuthCallback = () => {
         const hashParams = new URLSearchParams(window.location.hash.substring(1));
         const accessToken = hashParams.get('access_token');
         const refreshToken = hashParams.get('refresh_token');
+        const providerToken = hashParams.get('provider_token');
+        const providerRefreshToken = hashParams.get('provider_refresh_token');
 
         if (accessToken && refreshToken) {
           // Set the session using the tokens from the URL
@@ -34,8 +36,24 @@ const AuthCallback = () => {
             return;
           }
 
+          // If we have provider tokens, update the user's metadata
+          if (providerToken && providerRefreshToken) {
+            const { error: updateError } = await supabase.auth.updateUser({
+              data: {
+                provider_token: providerToken,
+                provider_refresh_token: providerRefreshToken,
+              }
+            });
+
+            if (updateError) {
+              console.error('Error updating user metadata:', updateError);
+            }
+          }
+
           // Force a refresh of the auth state
           await supabase.auth.refreshSession();
+          
+          // Redirect to the home page
           window.location.href = '/';
         } else {
           // If no tokens in URL, try to get the session
@@ -98,7 +116,17 @@ const App = () => {
                     <Route path="/benefits" element={<Navigate to="/#benefits" replace />} />
                     <Route path="/testimonials" element={<Navigate to="/#testimonials" replace />} />
                     <Route path="/pricing" element={<Navigate to="/#pricing" replace />} />
-                    <Route path="/auth/callback" element={<AuthCallback />} />
+                    <Route 
+                      path="/auth/callback" 
+                      element={
+                        <div className="min-h-screen flex items-center justify-center">
+                          <div className="text-center space-y-4">
+                            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                            <p className="text-lg text-gray-600 dark:text-gray-300">Completing sign in...</p>
+                          </div>
+                        </div>
+                      } 
+                    />
                     <Route
                       path="/assessment"
                       element={
