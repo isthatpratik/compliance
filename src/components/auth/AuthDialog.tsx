@@ -53,11 +53,18 @@ export function AuthDialog({
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
+            response_type: 'code',
+            scope: 'email profile'
           }
         }
       });
       
       if (error) throw error;
+      
+      // If we have a URL, redirect to it
+      if (data?.url) {
+        window.location.href = data.url;
+      }
     } catch (error) {
       console.error('Sign-in error:', error);
       toast({
@@ -99,11 +106,18 @@ export function AuthDialog({
   const handleSignUp = async (data: AuthFormData) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data: signUpData, error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
       });
-      if (error) throw error;
+      
+      if (error) {
+        console.error('Signup error details:', error);
+        throw error;
+      }
+      
+      console.log('Signup response:', signUpData);
+      
       onClose();
       reset();
       toast({
@@ -111,11 +125,12 @@ export function AuthDialog({
         description: "Check your email for the confirmation link!",
         variant: "success"
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Full error:', error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to create account. Please try again.",
+        description: error.message || "Failed to create account. Please try again.",
       });
     } finally {
       setIsLoading(false);

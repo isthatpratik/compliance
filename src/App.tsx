@@ -16,32 +16,46 @@ const AuthCallback = () => {
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error) {
-          console.error('Error getting session:', error);
-          window.location.href = '/';
-          return;
-        }
+        // Get the session from the URL hash
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = hashParams.get('access_token');
+        const refreshToken = hashParams.get('refresh_token');
 
-        if (session) {
+        if (accessToken && refreshToken) {
+          // Set the session using the tokens from the URL
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+
+          if (error) {
+            console.error('Error setting session:', error);
+            window.location.href = '/';
+            return;
+          }
+
           // Force a refresh of the auth state
           await supabase.auth.refreshSession();
           window.location.href = '/';
         } else {
-          // If no session, try to get the session from the URL
-          const { data: { session: urlSession }, error: urlError } = await supabase.auth.getSession();
-          if (urlError) {
-            console.error('Error getting URL session:', urlError);
+          // If no tokens in URL, try to get the session
+          const { data: { session }, error } = await supabase.auth.getSession();
+          
+          if (error) {
+            console.error('Error getting session:', error);
             window.location.href = '/';
             return;
           }
-          if (urlSession) {
+
+          if (session) {
+            window.location.href = '/';
+          } else {
+            // If still no session, redirect to home
             window.location.href = '/';
           }
         }
       } catch (error) {
-        console.error('Auth callback error:', error);
+        console.error('Error in auth callback:', error);
         window.location.href = '/';
       }
     };
@@ -50,10 +64,10 @@ const AuthCallback = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-white mx-auto"></div>
-        <p className="mt-4 text-gray-600 dark:text-gray-300">Completing sign in...</p>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center space-y-4">
+        <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <p className="text-lg text-gray-600 dark:text-gray-300">Completing sign in...</p>
       </div>
     </div>
   );

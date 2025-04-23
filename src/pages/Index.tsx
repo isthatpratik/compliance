@@ -1,14 +1,17 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Check, Sparkles, Zap, Rocket } from "lucide-react";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
+import { AuthDialog } from "@/components/auth/AuthDialog";
 
 const Index = () => {
   const { user } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
 
   useEffect(() => {
     // Handle hash-based navigation
@@ -21,17 +24,19 @@ const Index = () => {
   }, [location]);
 
   return (
-    <div className="space-y-32 py-16">
+    <div className="space-y-32 2xl:py-32 lg:py-12 py-6">
       {/* Hero Section */}
       <section className="container mx-auto px-4 relative">
-      <div className="inset-0 absolute flex h-[500px] w-full items-center justify-center overflow-visible rounded-lg p-20">
+      <div className="inset-0 absolute flex 2xl:h-[700px] lg:h-[500px] h-[300px] w-full pointer-events-none items-center justify-center overflow-visible rounded-lg p-20">
       <AnimatedGridPattern
         numSquares={30}
         maxOpacity={0.1}
         duration={3}
         repeatDelay={1}
         className={cn(
-          "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
+          "2xl:[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
+          "lg:[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+          "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
           "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12",
         )}
       />
@@ -49,12 +54,20 @@ const Index = () => {
           </p>
           <div className="flex justify-center space-x-4">
             {user ? (
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                onClick={() => navigate('/assessment')}
+              >
                 <Zap className="w-4 h-4 mr-2" />
-                Start Analysis
+                Start Assessment
               </Button>
             ) : (
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                onClick={() => setShowAuthDialog(true)}
+              >
                 <Rocket className="w-4 h-4 mr-2" />
                 Get Started
               </Button>
@@ -274,6 +287,11 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <AuthDialog
+        isOpen={showAuthDialog}
+        onClose={() => setShowAuthDialog(false)}
+      />
     </div>
   );
 };
