@@ -16,7 +16,6 @@ const AuthCallback = () => {
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
-        // Get the session from the URL hash
         const hashParams = new URLSearchParams(window.location.hash.substring(1));
         const accessToken = hashParams.get('access_token');
         const refreshToken = hashParams.get('refresh_token');
@@ -24,55 +23,32 @@ const AuthCallback = () => {
         const providerRefreshToken = hashParams.get('provider_refresh_token');
 
         if (accessToken && refreshToken) {
-          // Set the session using the tokens from the URL
-          const { error } = await supabase.auth.setSession({
+          await supabase.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken,
           });
 
-          if (error) {
-            console.error('Error setting session:', error);
-            window.location.href = '/';
-            return;
-          }
-
-          // If we have provider tokens, update the user's metadata
           if (providerToken && providerRefreshToken) {
-            const { error: updateError } = await supabase.auth.updateUser({
+            await supabase.auth.updateUser({
               data: {
                 provider_token: providerToken,
                 provider_refresh_token: providerRefreshToken,
               }
             });
-
-            if (updateError) {
-              console.error('Error updating user metadata:', updateError);
-            }
           }
-
-          // Redirect to home page immediately after successful authentication
-          window.location.href = '/';
-        } else {
-          // If no tokens in URL, redirect to home
-          window.location.href = '/';
         }
       } catch (error) {
         console.error('Error in auth callback:', error);
-        window.location.href = '/';
+      } finally {
+        // Always redirect to home page
+        window.location.replace('/');
       }
     };
 
     handleAuthCallback();
   }, []);
 
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p className="text-lg text-gray-600 dark:text-gray-300">Redirecting to home page...</p>
-      </div>
-    </div>
-  );
+  return null; // Don't render anything
 };
 
 const queryClient = new QueryClient();
