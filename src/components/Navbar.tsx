@@ -42,16 +42,16 @@ const Navbar = () => {
         {/* Navigation Links - Only show on non-assessment pages */}
         {!isAssessmentPage && (
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/features" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link to="/features" className="text-white-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
               Features
             </Link>
-            <Link to="/benefits" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link to="/benefits" className="text-white-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
               Benefits
             </Link>
-            <Link to="/testimonials" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link to="/testimonials" className="text-white-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
               Testimonials
             </Link>
-            <Link to="/pricing" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link to="/pricing" className="text-white-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
               Pricing
             </Link>
           </div>
@@ -70,7 +70,7 @@ const Navbar = () => {
             <>
               <Button
                 variant="ghost"
-                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                className="text-white-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                 onClick={handleSignInClick}
               >
                 Sign In

@@ -37,24 +37,24 @@ const Index = () => {
       />
     </div>
         <div className="max-w-3xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 mb-6">
+          <div style={{ display: "inline-flex", alignItems: "center", padding: "0.5rem 1rem", borderRadius: "9999px", backgroundColor: "#1c1c1c", color: "#868686", marginBottom: "1.5rem" }}>
             <Sparkles className="w-4 h-4 mr-2" />
             <span>AI-Powered Compliance Analysis</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 [text-shadow:_0_2px_10px_rgba(255,255,255,0.5)] dark:[text-shadow:_0_2px_10px_rgba(0,0,0,0.5)]">
+          <h1 style={{ fontSize: "2.25rem", fontWeight: "bold", color: "#FFFFFF", marginBottom: "1.5rem", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             Streamline Your Compliance Process
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 [text-shadow:_0_1px_5px_rgba(255,255,255,0.3)] dark:[text-shadow:_0_1px_5px_rgba(0,0,0,0.3)]">
+          <p style={{ fontSize: "1.25rem", color: "#868686", marginBottom: "2rem", textShadow: "0 1px 5px rgba(0,0,0,0.3)" }}>
             Get instant analysis and recommendations for your documents with our advanced AI technology.
           </p>
-          <div className="flex justify-center space-x-4">
+          <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
             {user ? (
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
+              <Button size="lg" style={{ background: "linear-gradient(to right, #6c6c6c, #6C6C6C)", color: "#FFFFFF" }}>
                 <Zap className="w-4 h-4 mr-2" />
                 Start Analysis
               </Button>
             ) : (
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
+              <Button size="lg" style={{ background: "linear-gradient(to right, #6c6c6c, #6C6C6C)", color: "#FFFFFF" }}>
                 <Rocket className="w-4 h-4 mr-2" />
                 Get Started
               </Button>
@@ -66,34 +66,34 @@ const Index = () => {
       {/* Features Section */}
       <section id="features" className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Powerful Features</h2>
-          <p className="text-gray-600 dark:text-gray-300">Everything you need to ensure compliance</p>
+          <h2 style={{ fontSize: "1.875rem", fontWeight: "bold", marginBottom: "1rem", color: "#FFFFFF" }}>Powerful Features</h2>
+          <p style={{ color: "#868686" }}>Everything you need to ensure compliance</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-lg bg-blue-100/20 dark:bg-blue-900/20 backdrop-blur-sm flex items-center justify-center mb-6">
-              <Sparkles className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)", transition: "box-shadow 0.3s ease" }}>
+            <div style={{ width: "3rem", height: "3rem", borderRadius: "0.5rem", backgroundColor: "rgba(108, 108, 108, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+              <Sparkles className="w-6 h-6" style={{ color: "#6c6c6c" }} />
             </div>
-            <h3 className="text-xl font-semibold mb-4">AI-Powered Analysis</h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem", color: "#FFFFFF" }}>AI-Powered Analysis</h3>
+            <p style={{ color: "#868686" }}>
               Our advanced AI technology analyzes your documents for compliance with various regulations.
             </p>
           </div>
-          <div className="p-8 rounded-xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-lg bg-green-100/20 dark:bg-green-900/20 backdrop-blur-sm flex items-center justify-center mb-6">
-              <Zap className="w-6 h-6 text-green-600 dark:text-green-400" />
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)", transition: "box-shadow 0.3s ease" }}>
+            <div style={{ width: "3rem", height: "3rem", borderRadius: "0.5rem", backgroundColor: "rgba(108, 108, 108, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+              <Zap className="w-6 h-6" style={{ color: "#6c6c6c" }} />
             </div>
-            <h3 className="text-xl font-semibold mb-4">Real-time Results</h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem", color: "#FFFFFF" }}>Real-time Results</h3>
+            <p style={{ color: "#868686" }}>
               Get instant feedback and recommendations for your compliance documents.
             </p>
           </div>
-          <div className="p-8 rounded-xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-lg bg-purple-100/20 dark:bg-purple-900/20 backdrop-blur-sm flex items-center justify-center mb-6">
-              <Rocket className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)", transition: "box-shadow 0.3s ease" }}>
+            <div style={{ width: "3rem", height: "3rem", borderRadius: "0.5rem", backgroundColor: "rgba(108, 108, 108, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+              <Rocket className="w-6 h-6" style={{ color: "#6c6c6c" }} />
             </div>
-            <h3 className="text-xl font-semibold mb-4">Multiple Regulations</h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem", color: "#FFFFFF" }}>Multiple Regulations</h3>
+            <p style={{ color: "#868686" }}>
               Support for various compliance frameworks and regulations.
             </p>
           </div>
@@ -103,31 +103,31 @@ const Index = () => {
       {/* Benefits Section */}
       <section id="benefits" className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Key Benefits</h2>
-          <p className="text-gray-600 dark:text-gray-300">Why choose CompliShield</p>
+          <h2 style={{ fontSize: "1.875rem", fontWeight: "bold", marginBottom: "1rem", color: "#FFFFFF" }}>Key Benefits</h2>
+          <p style={{ color: "#868686" }}>Why choose CompliShield</p>
         </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-                <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+              <div style={{ width: "3rem", height: "3rem", borderRadius: "0.5rem", backgroundColor: "rgba(108, 108, 108, 0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Zap className="w-6 h-6" style={{ color: "#6c6c6c" }} />
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">Save Time</h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "0.5rem", color: "#FFFFFF" }}>Save Time</h3>
+                <p style={{ color: "#868686" }}>
                   Reduce manual compliance checking time by up to 90%.
                 </p>
               </div>
             </div>
           </div>
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-green-600 dark:text-green-400" />
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+              <div style={{ width: "3rem", height: "3rem", borderRadius: "0.5rem", backgroundColor: "rgba(108, 108, 108, 0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Sparkles className="w-6 h-6" style={{ color: "#6c6c6c" }} />
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">Reduce Risk</h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "0.5rem", color: "#FFFFFF" }}>Reduce Risk</h3>
+                <p style={{ color: "#868686" }}>
                   Minimize compliance risks with thorough AI analysis.
                 </p>
               </div>
@@ -139,43 +139,43 @@ const Index = () => {
       {/* Testimonials Section */}
       <section id="testimonials" className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">What Our Users Say</h2>
-          <p className="text-gray-600 dark:text-gray-300">Trusted by compliance professionals worldwide</p>
+          <h2 style={{ fontSize: "1.875rem", fontWeight: "bold", marginBottom: "1rem", color: "#FFFFFF" }}>What Our Users Say</h2>
+          <p style={{ color: "#868686" }}>Trusted by compliance professionals worldwide</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 mr-4"></div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+              <div style={{ width: "3rem", height: "3rem", borderRadius: "50%", backgroundColor: "#6c6c6c", marginRight: "1rem" }}></div>
               <div>
-                <p className="font-semibold">John Doe</p>
-                <p className="text-sm text-gray-500">Compliance Officer</p>
+                <p style={{ fontWeight: "600", color: "#FFFFFF" }}>John Doe</p>
+                <p style={{ fontSize: "0.875rem", color: "#6c6c6c" }}>Compliance Officer</p>
               </div>
             </div>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p style={{ color: "#868686" }}>
               "CompliShield has revolutionized our compliance process. The AI analysis is incredibly accurate."
             </p>
           </div>
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 mr-4"></div>
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+              <div style={{ width: "3rem", height: "3rem", borderRadius: "50%", backgroundColor: "#6c6c6c", marginRight: "1rem" }}></div>
               <div>
-                <p className="font-semibold">Jane Smith</p>
-                <p className="text-sm text-gray-500">Legal Director</p>
+                <p style={{ fontWeight: "600", color: "#FFFFFF" }}>Jane Smith</p>
+                <p style={{ fontSize: "0.875rem", color: "#6c6c6c" }}>Legal Director</p>
               </div>
             </div>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p style={{ color: "#868686" }}>
               "The time saved on compliance checks is remarkable. Highly recommended!"
             </p>
           </div>
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 mr-4"></div>
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+              <div style={{ width: "3rem", height: "3rem", borderRadius: "50%", backgroundColor: "#6c6c6c", marginRight: "1rem" }}></div>
               <div>
-                <p className="font-semibold">Mike Johnson</p>
-                <p className="text-sm text-gray-500">Risk Manager</p>
+                <p style={{ fontWeight: "600", color: "#FFFFFF" }}>Mike Johnson</p>
+                <p style={{ fontSize: "0.875rem", color: "#6c6c6c" }}>Risk Manager</p>
               </div>
             </div>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p style={{ color: "#868686" }}>
               "An essential tool for any organization dealing with compliance."
             </p>
           </div>
@@ -185,92 +185,75 @@ const Index = () => {
       {/* Pricing Section */}
       <section id="pricing" className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
-          <p className="text-gray-600 dark:text-gray-300">Choose the plan that's right for you</p>
+          <h2 style={{ fontSize: "1.875rem", fontWeight: "bold", marginBottom: "1rem", color: "#FFFFFF" }}>Simple, Transparent Pricing</h2>
+          <p style={{ color: "#868686" }}>Choose the plan that's right for you</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col h-full">
-            <h3 className="text-xl font-semibold mb-4">Free</h3>
-            <div className="mb-6">
-              <span className="text-4xl font-bold">$0</span>
-              <span className="text-gray-500">/month</span>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)", display: "flex", flexDirection: "column", height: "100%" }}>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem", color: "#FFFFFF" }}>Free</h3>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <span style={{ fontSize: "2.25rem", fontWeight: "bold", color: "#FFFFFF" }}>$0</span>
+              <span style={{ color: "#6c6c6c" }}>/month</span>
             </div>
-            <ul className="space-y-4 mb-8 flex-grow">
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>5 documents per month</span>
+            <ul style={{ marginBottom: "2rem", flexGrow: 1, listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 1</span>
               </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Basic compliance checks</span>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 2</span>
               </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Email support</span>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 3</span>
               </li>
             </ul>
-            <Button className="w-full">Get Started</Button>
+            <Button size="lg" style={{ background: "linear-gradient(to right, #6c6c6c, #6C6C6C)", color: "#FFFFFF" }}>Get Started</Button>
           </div>
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border-2 border-blue-500 shadow-lg relative flex flex-col h-full">
-            <div className="absolute top-0 right-0 bg-blue-500 text-white px-4 py-1 rounded-bl-lg rounded-tr-lg text-sm">
-              Popular
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)", display: "flex", flexDirection: "column", height: "100%" }}>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem", color: "#FFFFFF" }}>Pro</h3>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <span style={{ fontSize: "2.25rem", fontWeight: "bold", color: "#FFFFFF" }}>$49</span>
+              <span style={{ color: "#6c6c6c" }}>/month</span>
             </div>
-            <h3 className="text-xl font-semibold mb-4">Plus</h3>
-            <div className="mb-6">
-              <span className="text-4xl font-bold">$14</span>
-              <span className="text-gray-500">/month</span>
-            </div>
-            <ul className="space-y-4 mb-8 flex-grow">
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>50 documents per month</span>
+            <ul style={{ marginBottom: "2rem", flexGrow: 1, listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 1</span>
               </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Advanced compliance checks</span>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 2</span>
               </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Priority support</span>
-              </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Custom compliance frameworks</span>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 3</span>
               </li>
             </ul>
-            <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
-              Get Started
-            </Button>
+            <Button size="lg" style={{ background: "linear-gradient(to right, #6c6c6c, #6C6C6C)", color: "#FFFFFF" }}>Get Started</Button>
           </div>
-          <div className="p-8 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col h-full">
-            <h3 className="text-xl font-semibold mb-4">Ultra</h3>
-            <div className="mb-6">
-              <span className="text-4xl font-bold">$29</span>
-              <span className="text-gray-500">/month</span>
+          <div style={{ padding: "2rem", borderRadius: "0.75rem", backgroundColor: "#1c1c1c", border: "1px solid #6c6c6c", boxShadow: "0 1px 2px rgba(0,0,0,0.1)", display: "flex", flexDirection: "column", height: "100%" }}>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "1rem", color: "#FFFFFF" }}>Enterprise</h3>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <span style={{ fontSize: "2.25rem", fontWeight: "bold", color: "#FFFFFF" }}>$99</span>
+              <span style={{ color: "#6c6c6c" }}>/month</span>
             </div>
-            <ul className="space-y-4 mb-8 flex-grow">
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Unlimited documents</span>
+            <ul style={{ marginBottom: "2rem", flexGrow: 1, listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 1</span>
               </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Advanced compliance checks</span>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 2</span>
               </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>24/7 Priority support</span>
-              </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>Custom compliance frameworks</span>
-              </li>
-              <li className="flex items-center">
-                <Check className="w-5 h-5 text-green-500 mr-2" />
-                <span>API access</span>
+              <li style={{ display: "flex", alignItems: "center" }}>
+                <Check className="w-5 h-5" style={{ color: "#6c6c6c", marginRight: "0.5rem" }} />
+                <span style={{ color: "#868686" }}>Feature 3</span>
               </li>
             </ul>
-            <Button className="w-full">Get Started</Button>
+            <Button size="lg" style={{ background: "linear-gradient(to right, #6c6c6c, #6C6C6C)", color: "#FFFFFF" }}>Get Started</Button>
           </div>
         </div>
       </section>

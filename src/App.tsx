@@ -71,8 +71,8 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
-          <div className="bg-white text-gray-900 dark:bg-gray-950 dark:text-white min-h-screen">
-            <div className="max-w-[1440px] mx-auto">
+          <div style={{ backgroundColor: "#1c1c1c", color: "#FFFFFF", minHeight: "100vh" }}>
+            <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
               <Toaster />
               <Sonner />
               <Router>
