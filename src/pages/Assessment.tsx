@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import AssessmentForm from "@/components/AssessmentForm";
 import ComplianceChecker from "@/components/ComplianceChecker";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Footer from "@/components/Footer";
 
 const Assessment = () => {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full">
+    <div className="bg-[#09090B] pt-12 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full relative min-h-[calc(100vh-198px)]">
+        <div className="absolute inset-0 bg-grid-gray-900/[0.04] dark:bg-grid-gray-100/[0.02] bg-[size:32px] -z-10" />
+        <div className="absolute inset-0 flex items-center justify-center -z-10 bg-gradient-to-tr from-gray-50/50 via-gray-100/25 to-gray-50/50 dark:from-gray-950/50 dark:via-gray-900/25 dark:to-gray-950/50 blur-[100px]" />
         {/* <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
             Compliance Assessment
@@ -35,25 +38,31 @@ const Assessment = () => {
           </div>
         </div> */}
         
-        <Tabs defaultValue="assessment" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-gray-100 dark:bg-gray-800">
-            <TabsTrigger value="assessment" className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900">
+        <Tabs defaultValue="assessment" className="w-full pb-10">
+          <TabsList className="grid w-full grid-cols-2 mb-8 h-fit bg-[#111010] border border-white/10">
+            <TabsTrigger 
+              value="assessment" 
+              className="data-[state=active]:bg-[#302F2F] text-white data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-white/10">
               Assessment Questionnaire
             </TabsTrigger>
-            <TabsTrigger value="compliance-check" className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900">
+            <TabsTrigger 
+              value="compliance-check" 
+              className="data-[state=active]:bg-[#302F2F] text-white data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-white/10">
               Document Compliance Check
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="assessment">
+          <TabsContent value="assessment" className="bg-transparent">
             <AssessmentForm />
           </TabsContent>
           
-          <TabsContent value="compliance-check">
+          <TabsContent value="compliance-check" className="bg-transparent">
             <ComplianceChecker />
           </TabsContent>
         </Tabs>
       </div>
+      
+      <Footer />
     </div>
   );
 };

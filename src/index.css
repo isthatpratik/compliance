@@ -1,7 +1,21 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Fustat:wght@200..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Fustat', sans-serif;
+  }
+  
+  .cal-sans-regular {
+    font-family: "Cal Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
 
 @layer base {
   :root {

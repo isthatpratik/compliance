@@ -1,7 +1,25 @@
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 #root {
   max-width: 100%;
   margin: 0;
   padding: 0;
   text-align: left;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+}
+
+/* Apply Cal Sans to specific elements if needed */
+h1, h2, h3, h4, h5, h6 {
+  @apply cal-sans-regular;
+}
+
+/* Ensure smooth font loading */
+@supports (font-variation-settings: normal) {
+  html {
+    font-optical-sizing: auto;
+  }
 }

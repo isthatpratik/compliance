@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Check, Clipboard, FileText } from "lucide-react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const formSchema = z.object({
   organization: z.string().min(1, { message: "Organization name is required" }),
@@ -59,54 +60,33 @@ const AssessmentForm = () => {
     setIsSubmitting(true);
     
     try {
-      const prompt = `
-        I need a compliance assessment for the following organization:
-        
-        Organization Name: ${data.organization}
-        Industry: ${data.industry}
-        
-        Compliance Information:
-        - Has formal compliance policies: ${data.hasPolicies}
-        ${data.policyDescription ? `- Policy description: ${data.policyDescription}` : ''}
-        - Data handling procedures: ${data.dataHandling}
-        - Security measures: ${data.securityMeasures}
-        - Vendor management procedures: ${data.vendorManagement}
-        
-        Please provide:
-        1. An overall risk assessment score (0-100%)
-        2. Key compliance gaps identified
-        3. Recommended actions to improve compliance
-        4. Timeline suggestions for implementation
-      `;
+      const prompt = `You are a compliance expert. Provide detailed compliance assessments for organizations based on the information provided.
+      
+      I need a compliance assessment for the following organization:
+      
+      Organization Name: ${data.organization}
+      Industry: ${data.industry}
+      
+      Compliance Information:
+      - Has formal compliance policies: ${data.hasPolicies}
+      ${data.policyDescription ? `- Policy description: ${data.policyDescription}` : ''}
+      - Data handling procedures: ${data.dataHandling}
+      - Security measures: ${data.securityMeasures}
+      - Vendor management procedures: ${data.vendorManagement}
+      
+      Please provide:
+      1. An overall risk assessment score (0-100%)
+      2. Key compliance gaps identified
+      3. Recommended actions to improve compliance
+      4. Timeline suggestions for implementation`;
 
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: "gpt-4",
-          messages: [
-            {
-              role: "system",
-              content: "You are a compliance expert. Provide detailed compliance assessments for organizations based on the information provided."
-            },
-            {
-              role: "user",
-              content: prompt
-            }
-          ],
-          temperature: 0.7
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate assessment');
-      }
-
-      const responseData = await response.json();
-      const assessment = responseData.choices[0].message.content;
+      // Initialize the Gemini API
+      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+      
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const assessment = response.text();
       
       setAssessmentResult(assessment);
       
@@ -138,9 +118,9 @@ const AssessmentForm = () => {
   return (
     <div className="space-y-8">
       {!assessmentResult ? (
-        <Card className="border-gray-200 dark:border-gray-800 shadow-sm">
+        <Card className="border-white/10 bg-[#09090B] text-white shadow-sm backdrop-blur-xl">
           <CardContent className="pt-6">
-            <h3 className="text-xl font-semibold mb-6">Compliance Questionnaire</h3>
+            <h3 className="text-xl font-semibold mb-6 text-white">Compliance Questionnaire</h3>
             
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -152,7 +132,7 @@ const AssessmentForm = () => {
                       <FormItem>
                         <FormLabel>Organization Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter your organization name" className="border-gray-300 dark:border-gray-700" {...field} />
+                          <Input placeholder="Enter your organization name" className="border-white/10 bg-[#09090B] text-white placeholder:text-gray-500" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -166,7 +146,7 @@ const AssessmentForm = () => {
                       <FormItem>
                         <FormLabel>Industry</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. Healthcare, Finance, Technology" className="border-gray-300 dark:border-gray-700" {...field} />
+                          <Input placeholder="e.g. Healthcare, Finance, Technology" className="border-white/10 bg-[#09090B] text-white placeholder:text-gray-500" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -178,8 +158,8 @@ const AssessmentForm = () => {
                   control={form.control}
                   name="hasPolicies"
                   render={({ field }) => (
-                    <FormItem className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-md border border-gray-200 dark:border-gray-700">
-                      <FormLabel className="text-base">Does your organization have formal compliance policies?</FormLabel>
+                    <FormItem className="p-4 bg-[#111010] rounded-md border border-[#111010] backdrop-blur-sm">
+                      <FormLabel className="text-base text-white">Does your organization have formal compliance policies?</FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
@@ -188,21 +168,30 @@ const AssessmentForm = () => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="yes" />
+                              <RadioGroupItem 
+                                value="yes" 
+                                className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]" 
+                              />
                             </FormControl>
-                            <FormLabel className="font-normal">Yes, comprehensive policies</FormLabel>
+                            <FormLabel className="font-normal text-white">Yes, comprehensive policies</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="partial" />
+                              <RadioGroupItem 
+                                value="partial" 
+                                className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]"
+                              />
                             </FormControl>
-                            <FormLabel className="font-normal">Partial policies</FormLabel>
+                            <FormLabel className="font-normal text-white">Partial policies</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="no" />
+                              <RadioGroupItem 
+                                value="no" 
+                                className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]"
+                              />
                             </FormControl>
-                            <FormLabel className="font-normal">No formal policies</FormLabel>
+                            <FormLabel className="font-normal text-white">No formal policies</FormLabel>
                           </FormItem>
                         </RadioGroup>
                       </FormControl>
@@ -221,7 +210,7 @@ const AssessmentForm = () => {
                         <FormControl>
                           <Textarea 
                             placeholder="Describe your current compliance policies..." 
-                            className="min-h-[100px] border-gray-300 dark:border-gray-700" 
+                            className="min-h-[100px] border-white/30 bg-[#09090B] text-white placeholder:text-gray-500 resize-none" 
                             {...field} 
                           />
                         </FormControl>
@@ -235,8 +224,8 @@ const AssessmentForm = () => {
                   control={form.control}
                   name="dataHandling"
                   render={({ field }) => (
-                    <FormItem className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-md border border-gray-200 dark:border-gray-700">
-                      <FormLabel className="text-base">Do you have documented data handling procedures?</FormLabel>
+                    <FormItem className="p-4 bg-[#111010] rounded-md border border-[#111010] backdrop-blur-sm">
+                      <FormLabel className="text-base text-white">Do you have documented data handling procedures?</FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
@@ -245,21 +234,27 @@ const AssessmentForm = () => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="yes" />
+                              <RadioGroupItem 
+                                value="yes" 
+                                className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]" 
+                              />
                             </FormControl>
-                            <FormLabel className="font-normal">Yes, fully documented</FormLabel>
+                            <FormLabel className="font-normal text-white">Yes, fully documented</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="no" />
+                              <RadioGroupItem 
+                                value="no" 
+                                className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]"
+                              />
                             </FormControl>
-                            <FormLabel className="font-normal">No documentation</FormLabel>
+                            <FormLabel className="font-normal text-white">No documentation</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="unsure" />
+                              <RadioGroupItem value="unsure" className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]" />
                             </FormControl>
-                            <FormLabel className="font-normal">Unsure</FormLabel>
+                            <FormLabel className="font-normal text-white">Unsure</FormLabel>
                           </FormItem>
                         </RadioGroup>
                       </FormControl>
@@ -275,10 +270,10 @@ const AssessmentForm = () => {
                     <FormItem>
                       <FormLabel>Describe your security measures</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Describe your current security measures..." 
-                          className="min-h-[100px] border-gray-300 dark:border-gray-700" 
-                          {...field} 
+                        <Textarea
+                          placeholder="Describe your current security measures"
+                          className="min-h-[100px] resize-none bg-[#09090B] border-white/20 text-white placeholder:text-gray-400"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -290,8 +285,8 @@ const AssessmentForm = () => {
                   control={form.control}
                   name="vendorManagement"
                   render={({ field }) => (
-                    <FormItem className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-md border border-gray-200 dark:border-gray-700">
-                      <FormLabel className="text-base">Do you have vendor management processes in place?</FormLabel>
+                    <FormItem className="p-4 bg-[#111010] rounded-md border border-[#111010] backdrop-blur-sm">
+                      <FormLabel className="text-base text-white">Do you have vendor management processes in place?</FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
@@ -300,21 +295,27 @@ const AssessmentForm = () => {
                         >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="yes" />
+                              <RadioGroupItem 
+                                value="yes" 
+                                className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]" 
+                              />
                             </FormControl>
-                            <FormLabel className="font-normal">Yes, comprehensive</FormLabel>
+                            <FormLabel className="font-normal text-white">Yes, comprehensive</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="partial" />
+                              <RadioGroupItem value="partial" className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]"  />
                             </FormControl>
-                            <FormLabel className="font-normal">Partial processes</FormLabel>
+                            <FormLabel className="font-normal text-white">Partial processes</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="no" />
+                              <RadioGroupItem 
+                                value="no" 
+                                className="h-4 w-4 border-white/30 text-white data-[state=checked]:bg-white data-[state=checked]:text-[#09090B]"
+                              />
                             </FormControl>
-                            <FormLabel className="font-normal">No formal processes</FormLabel>
+                            <FormLabel className="font-normal text-white">No formal processes</FormLabel>
                           </FormItem>
                         </RadioGroup>
                       </FormControl>
@@ -325,7 +326,7 @@ const AssessmentForm = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-800 dark:hover:bg-gray-700" 
+                  className="w-full bg-white text-black hover:bg-white" 
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Generating Assessment..." : "Submit Assessment"}
@@ -356,7 +357,7 @@ const AssessmentForm = () => {
               <div className="mt-6 flex justify-end">
                 <Button 
                   onClick={() => setAssessmentResult(null)}
-                  className="bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                  className="bg-white text-black hover:bg-white"
                 >
                   <Check className="mr-2 h-4 w-4" />
                   Complete Another Assessment

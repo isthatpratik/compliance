@@ -45,14 +45,14 @@ export function ProfileDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-center space-x-2">
-          <User className="h-4 w-4" />
-          <span className="text-sm text-gray-700 dark:text-gray-300">
+        <Button className="flex items-center space-x-2 bg-[#09090B] cursor-pointer hover:bg-[#111010]">
+          <User className="h-4 w-4 hover:text-white" />
+          <span className="text-sm text-gray-200 hover:text-white">
             {user?.username || "User"}
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end">
+      <DropdownMenuContent className="w-56 bg-[#111010] border-white/10 text-white" align="end">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user?.email}</p>
@@ -63,7 +63,7 @@ export function ProfileDropdown() {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="text-xs bg-transparent border-b border-gray-200 dark:border-gray-700 focus:outline-none"
+                    className="text-xs bg-transparent focus:outline-none hover:border-gray-300"
                     placeholder="Enter username"
                   />
                   <Button
@@ -77,7 +77,7 @@ export function ProfileDropdown() {
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-gray-400">
                     {username || "Add username"}
                   </span>
                   <Button
@@ -93,21 +93,15 @@ export function ProfileDropdown() {
             </div>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex flex-col space-y-2">
-          <div className="flex items-center justify-between w-full">
-            <span className="text-xs text-muted-foreground">Token Usage</span>
-            <span className="text-xs text-muted-foreground">0/1000</span>
+        <DropdownMenuItem className="flex flex-col space-y-2 hover:bg-[#111010]">
+          <div className="flex items-center justify-between w-full hover:bg-[#111010]">
+            <span className="text-xs text-gray-400">Token Usage</span>
+            <span className="text-xs text-gray-400">0/1000</span>
           </div>
           <Progress value={0} className="h-1" />
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
-        </DropdownMenuItem>
         <DropdownMenuItem
-          className="text-red-600 cursor-pointer"
+          className="text-gray-400 hover:text-gray-300 cursor-pointer"
           onClick={() => signOut()}
         >
           <LogOut className="mr-2 h-4 w-4" />

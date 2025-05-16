@@ -9,47 +9,9 @@ import Navbar from "@/components/Navbar";
 import Index from "./pages/Index";
 import Assessment from "./pages/Assessment";
 import NotFound from "./pages/NotFound";
+import AuthCallback from "./pages/AuthCallback";
 import { useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-
-const AuthCallback = () => {
-  useEffect(() => {
-    const handleAuthCallback = async () => {
-      try {
-        const hashParams = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = hashParams.get('access_token');
-        const refreshToken = hashParams.get('refresh_token');
-        const providerToken = hashParams.get('provider_token');
-        const providerRefreshToken = hashParams.get('provider_refresh_token');
-
-        if (accessToken && refreshToken) {
-          await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          });
-
-          if (providerToken && providerRefreshToken) {
-            await supabase.auth.updateUser({
-              data: {
-                provider_token: providerToken,
-                provider_refresh_token: providerRefreshToken,
-              }
-            });
-          }
-        }
-      } catch (error) {
-        console.error('Error in auth callback:', error);
-      } finally {
-        // Always redirect to home page
-        window.location.replace('/');
-      }
-    };
-
-    handleAuthCallback();
-  }, []);
-
-  return null; // Don't render anything
-};
 
 const queryClient = new QueryClient();
 
@@ -63,7 +25,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
-          <div className="bg-white text-gray-900 dark:bg-gray-950 dark:text-white min-h-screen">
+          <div className="text-white bg-[#09090B] min-h-screen">
             <div className="max-w-[1440px] mx-auto">
               <Toaster />
               <Sonner />
